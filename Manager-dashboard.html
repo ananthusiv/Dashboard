@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="dashboard_title">KFC Chicken Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+    <script src="dashboard.js" defer></script>
+     <!-- Include Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+
+<body>
+    <div class="navbar">
+        <input type="text" id="search-input" placeholder="Search...">
+        <select id="timeframe-select">
+            <option value="daily" data-translate="daily">Daily</option>
+            <option value="monthly" data-translate="monthly">Monthly</option>
+            <option value="yearly" data-translate="yearly">Yearly</option>
+        </select>
+        <div class="export-buttons">
+            <button id="export-csv" data-translate="export_csv">Export CSV</button>
+            <button id="export-excel" data-translate="export_excel">Export Excel</button>
+            <button id="export-pdf" data-translate="export_pdf">Export PDF</button>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="theme-toggle">
+                <button id="dark-mode-btn" class="theme-toggle-button">
+                    <span id="sun-icon">☀️</span>
+                    <span id="moon-icon">🌙</span>
+                </button>
+            </div>
+
+            <div class="logo">
+                <img src="dashboard-assets/kfclogowebp" alt="KFC Logo">
+            </div>
+        
+            <nav>
+                <ul>
+                    <li><a href="#inventory" class="nav-link" data-translate="inventory">Inventory</a></li>
+                    <li><a href="#sales" class="nav-link" data-translate="sales">Sales</a></li>
+                    <li><a href="#operations" class="nav-link" data-translate="operations">Operations</a></li>
+                    <li><a href="#customers" class="nav-link" data-translate="customers">Customer Insights</a></li>
+                    <li><a href="#sales-trends" class="nav-link" data-translate="sales_trends">Sales Trends</a></li>
+                    <li><a href="#sustainability" class="nav-link" data-translate="sustainability">Sustainability</a></li>
+                    <li><a href="#performance" class="nav-link" data-translate="performance">Performance</a></li>
+                </ul>
+            </nav>
+        
+            <!-- Language Dropdown -->
+            <select id="language-select" onchange="changeLanguage()">
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+            </select>
+            
+        </aside>
+        
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <h1 data-translate="dashboard_title">KFC Chicken Dashboard</h1>
+                <p id="current-time"></p>
+            </header>
+
+            <!-- Sections -->
+            <section id="inventory" class="section">
+                <h2 data-translate="inventory_overview">Inventory Overview</h2>
+                <div class="metrics">
+                    <div class="metric card" data-timeframe="today">
+                        <h3 data-translate="chicken_stock_levels">Chicken Stock Levels</h3>
+                        <canvas id="stock-bar" class="chart"></canvas>
+                    </div>
+                    <div class="metric card" data-timeframe="week">
+                        <h3 data-translate="waste_tracking">Waste Tracking</h3>
+                        <canvas id="waste-chart" class="chart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sales" class="section">
+                <h2 data-translate="sales_performance">Sales Performance</h2>
+                <div class="metrics">
+                    <div class="metric card" data-timeframe="today">
+                        <h3 data-translate="daily_sales">Daily Sales</h3>
+                        <canvas id="sales-graph" class="chart"></canvas>
+                    </div>
+                    <div class="metric card" data-timeframe="week">
+                        <h3 data-translate="top_selling_products">Top-Selling Products</h3>
+                        <canvas id="top-selling" class="chart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="operations" class="section">
+                <h2 data-translate="operations_section">Operations</h2>
+                <div class="metrics">
+                    <div class="metric card" data-timeframe="month">
+                        <h3 data-translate="order_fulfillment_time">Order Fulfillment Time</h3>
+                        <canvas id="order-fulfillment-time" class="chart"></canvas>
+                    </div>
+                    <div class="metric card" data-timeframe="week">
+                        <h3 data-translate="staff_efficiency">Staff Efficiency</h3>
+                        <canvas id="staff-efficiency" class="chart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="customers" class="section">
+                <h2 data-translate="customer_insights">Customer Insights</h2>
+                <div class="metrics">
+                    <div class="metric card" data-timeframe="month">
+                        <h3 data-translate="customer_satisfaction">Customer Satisfaction</h3>
+                        <canvas id="customer-satisfaction" class="chart"></canvas>
+                    </div>
+                    <div class="metric card" data-timeframe="week">
+                        <h3 data-translate="order_preferences">Order Preferences</h3>
+                        <canvas id="order-preferences" class="chart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sales-trends" class="section">
+                <h2 data-translate="sales_trends_section">Sales Trends</h2>
+                <div class="metrics">
+                    <div class="metric card" data-timeframe="month">
+                        <h3 data-translate="total_sales">Total Sales Over Time</h3>
+                        <canvas id="total-sales" class="chart"></canvas>
+                    </div>
+                    <div class="metric card" data-timeframe="week">
+                        <h3 data-translate="sales_by_category">Sales by Product Category</h3>
+                        <canvas id="sales-category" class="chart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sustainability" class="section">
+                <h2 data-translate="sustainability_section">Sustainability</h2>
+                <div class="metrics">
+                    <div class="metric card" data-timeframe="month">
+                        <h3 data-translate="carbon_footprint">Carbon Footprint</h3>
+                        <canvas id="carbon-footprint" class="chart"></canvas>
+                    </div>
+                    <div class="metric card" data-timeframe="week">
+                        <h3 data-translate="energy_consumption">Energy Consumption</h3>
+                        <canvas id="energy-consumption" class="chart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="performance" class="section">
+                <h2 data-translate="staff_performance">Staff Performance</h2>
+                <div class="metrics">
+                    <div class="metric card" data-timeframe="week">
+                        <h3 data-translate="staff_efficiency">Staff Efficiency</h3>
+                        <canvas id="staff-efficiency" class="chart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+
+</html>
