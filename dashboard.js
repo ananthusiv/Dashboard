@@ -570,8 +570,7 @@ function filterByTimeframe() {
             card.style.display = 'none';  // Hide cards that do not match the timeframe
         }
     });
-}
-const translations = {
+}const translations = {
     "en": {
         "dashboard_title": "KFC Chicken Dashboard",
         "inventory": "Inventory",
@@ -579,8 +578,8 @@ const translations = {
         "operations": "Operations",
         "customers": "Customer Insights",
         "sales_trends": "Sales Trends",
-        "sustainability": "Sustainability",
-        "performance": "Performance",
+        "sustainability": "Sustainability",  // Added
+        "performance": "Performance",  // Added
         "inventory_overview": "Inventory Overview",
         "chicken_stock_levels": "Chicken Stock Levels",
         "waste_tracking": "Waste Tracking",
@@ -613,8 +612,8 @@ const translations = {
         "operations": "Operaciones",
         "customers": "Información del Cliente",
         "sales_trends": "Tendencias de Ventas",
-        "sustainability": "Sostenibilidad",
-        "performance": "Desempeño",
+        "sustainability": "Sostenibilidad",  // Added
+        "performance": "Desempeño",  // Added
         "inventory_overview": "Vista General del Inventario",
         "chicken_stock_levels": "Niveles de Stock de Pollo",
         "waste_tracking": "Seguimiento de Desperdicios",
@@ -647,8 +646,8 @@ const translations = {
         "operations": "Opérations",
         "customers": "Informations Clients",
         "sales_trends": "Tendances des Ventes",
-        "sustainability": "Durabilité",
-        "performance": "Performance",
+        "sustainability": "Durabilité",  // Added
+        "performance": "Performance",  // Added
         "inventory_overview": "Aperçu de l'Inventaire",
         "chicken_stock_levels": "Niveaux de Stock de Poulet",
         "waste_tracking": "Suivi des Déchets",
@@ -718,3 +717,29 @@ function toggleTheme() {
 
 // Add event listener to the theme toggle button
 themeToggleButton.addEventListener('click', toggleTheme);
+document.querySelectorAll('.staff-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        const confettiContainer = document.querySelector('.confetti-container');
+        const numberOfConfetti = 30; // Number of confetti pieces per hover
+
+        // Show confetti container
+        confettiContainer.style.display = 'block';
+
+        // Create confetti pieces
+        for (let i = 0; i < numberOfConfetti; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = `${Math.random() * 100}%`; // Random position
+            confetti.style.animationDelay = `${Math.random() * 0.5}s`; // Random delay for staggered effect
+            confetti.style.animationDuration = `${Math.random() * 0.5 + 1}s`; // Random duration for falling speed
+            confettiContainer.appendChild(confetti);
+        }
+
+        // Remove confetti after animation
+        setTimeout(() => {
+            confettiContainer.innerHTML = ''; // Clear confetti
+            confettiContainer.style.display = 'none'; // Hide container
+        }, 2000); // Adjust time to match animation duration
+    });
+});
+
