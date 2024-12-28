@@ -1,267 +1,291 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang=en>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-translate="dashboard_title">KFC Chicken Dashboard</title>
-    <link rel="stylesheet" href="dashboard.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
-    <script src="dashboard.js" defer></script>
-     <!-- Include Font Awesome for icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+<meta charset=UTF-8>
+<meta name=viewport content="width=device-width, initial-scale=1.0">
+<title>KFC Dashboard</title>
+<link href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css rel=stylesheet>
+<link rel=stylesheet href=styles.css>
+<script src=https://cdn.jsdelivr.net/npm/chart.js></script>
 </head>
-
 <body>
-    <div class="navbar">
-        <input type="text" id="search-input" placeholder="Search...">
-        <select id="timeframe-select">
-            <option value="daily" data-translate="daily">Daily</option>
-            <option value="monthly" data-translate="monthly">Monthly</option>
-            <option value="yearly" data-translate="yearly">Yearly</option>
-        </select>
-        <div class="export-buttons">
-            <button id="export-csv" data-translate="export_csv">Export CSV</button>
-            <button id="export-excel" data-translate="export_excel">Export Excel</button>
-            <button id="export-pdf" data-translate="export_pdf">Export PDF</button>
+<nav class=mobile-navbar>
+<div class=logo-container>
+<div class=logo>
+<img src=/dashboard-assets/kfc-logo.png alt="KFC Logo" />
+</div>
+<button class=navbar-toggler id=navbar-toggler>
+<i class="fa fa-arrow-right"></i>
+</button>
+</div>
+<div class=icons>
+<div class=message-icon>
+<i class="fa fa-envelope">
+<span class=badge>3</span>
+</i>
+</div>
+<div class=notification-icon>
+<i class="fa fa-bell">
+<span class=badge>5</span>
+</i>
+</div>
+<div class=profile id=profile-icon>
+<i class="fa fa-user"></i>
+<div class=dropdown-menu id=dropdown-menu>
+<ul>
+<li><a href=#><i class="fa fa-cog"></i> Settings</a></li>
+<li><a href=#><i class="fa fa-sign-out-alt"></i> Logout</a></li>
+</ul>
+</div>
+</div>
+<button id=theme-toggler class=theme-toggler>
+<i class="fa fa-moon"></i>
+</button>
+</div>
+</nav>
+<div class="sidebar">
+  <ul>
+    <li>
+      <div class="menu-item">
+        <i class="fa fa-home"></i> <a href="#overview-reports">Dashboard</a>
+      </div>
+    </li>
+    <li>
+      <div class="menu-item">
+        <i class="fa fa-shopping-cart"></i> <a href="#orders-section">Orders</a>
+      </div>
+    </li>
+    <li>
+      <div class="menu-item">
+        <i class="fa fa-chart-line"></i> <a href="#sales-performance">Sales</a>
+      </div>
+    </li>
+    <li>
+      <div class="menu-item">
+        <i class="fa fa-box"></i> <a href="#product-management">Products</a>
+      </div>
+    </li>
+    <li>
+      <div class="menu-item">
+        <i class="fa fa-cog"></i> <a href="#settings-management">Settings</a>
+      </div>
+    </li>
+  </ul>
+</div>
+<div class=main-content>
+  <section id="overview-reports">
+    <!-- Tabs for navigation -->
+    <div class="tabs">
+      <button class="tab" id="overview-tab" onclick="toggleTab('overview')">Overview</button>
+      <button class="tab" id="reports-tab" onclick="toggleTab('reports')">Reports</button>
+    </div>
+    
+    <!-- Overview Section -->
+    <div class="section-overview" id="overview" style="display: block;">
+      <h2>Overview</h2>
+      <p>Get a quick summary of performance and metrics.</p>
+      <div class="overview-metrics">
+        <div class="metric-card">
+          <i class="fa fa-dollar-sign"></i>
+          <h3>Total Sales</h3>
+          <p>$45,200 <span class="growth positive">+12%</span></p>
+          <div class="progress-bar">
+            <div class="progress" style="width: 70%;"></div>
+          </div>
         </div>
+        <div class="metric-card">
+          <i class="fa fa-box-open"></i>
+          <h3>New Orders</h3>
+          <p>320 <span class="growth negative">-5%</span></p>
+          <div class="progress-bar">
+            <div class="progress" style="width: 50%;"></div>
+          </div>
+        </div>
+        <div class="metric-card">
+          <i class="fa fa-users"></i>
+          <h3>Active Customers</h3>
+          <p>1,250 <span class="growth positive">+8%</span></p>
+          <div class="progress-bar">
+            <div class="progress" style="width: 80%;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="overviewChart" width="400" height="200"></canvas>
+      </div>
     </div>
-
-    <div class="dashboard-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="theme-toggle">
-                <button id="dark-mode-btn" class="theme-toggle-button">
-                    <span id="sun-icon">☀️</span>
-                    <span id="moon-icon">🌙</span>
-                </button>
-            </div>
-
-            <div class="logo">
-                <img src="dashboard-assets/kfclogowebp" alt="KFC Logo">
-            </div>
-        
-            <nav>
-                <ul>
-                    <li><a href="#inventory" class="nav-link" data-translate="inventory">Inventory</a></li>
-                    <li><a href="#sales" class="nav-link" data-translate="sales">Sales</a></li>
-                    <li><a href="#operations" class="nav-link" data-translate="operations">Operations</a></li>
-                    <li><a href="#customers" class="nav-link" data-translate="customers">Customer Insights</a></li>
-                    <li><a href="#sales-trends" class="nav-link" data-translate="sales_trends">Sales Trends</a></li>
-                    <li><a href="#sustainability" class="nav-link" data-translate="sustainability">Sustainability</a></li>
-                    <li><a href="#performance" class="nav-link" data-translate="performance">Performance</a></li>
-                </ul>
-            </nav>
-        
-            <!-- Language Dropdown -->
-            <select id="language-select" onchange="changeLanguage()">
-                <option value="en">English</option>
-                <option value="es">Español</option>
-                <option value="fr">Français</option>
-            </select>
-            
-        </aside>
-        
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <header>
-                <h1 data-translate="dashboard_title">KFC Chicken Dashboard</h1>
-                <p id="current-time"></p>
-            </header>
-
-            <!-- Sections -->
-            <section id="inventory" class="section">
-                <h2 data-translate="inventory_overview">Inventory Overview</h2>
-                <div class="metrics">
-                    <div class="metric card" data-timeframe="today">
-                        <h3 data-translate="chicken_stock_levels">Chicken Stock Levels</h3>
-                        <canvas id="stock-bar" class="chart"></canvas>
-                    </div>
-                    <div class="metric card" data-timeframe="week">
-                        <h3 data-translate="waste_tracking">Waste Tracking</h3>
-                        <canvas id="waste-chart" class="chart"></canvas>
-                    </div>
-                </div>
-            </section>
-
-            <section id="sales" class="section">
-                <h2 data-translate="sales_performance">Sales Performance</h2>
-                <div class="metrics">
-                    <div class="metric card" data-timeframe="today">
-                        <h3 data-translate="daily_sales">Daily Sales</h3>
-                        <canvas id="sales-graph" class="chart"></canvas>
-                    </div>
-                    <div class="metric card" data-timeframe="week">
-                        <h3 data-translate="top_selling_products">Top-Selling Products</h3>
-                        <canvas id="top-selling" class="chart"></canvas>
-                    </div>
-                </div>
-            </section>
-
-            <section id="operations" class="section">
-                <h2 data-translate="operations_section">Operations</h2>
-                <div class="metrics">
-                    <div class="metric card" data-timeframe="month">
-                        <h3 data-translate="order_fulfillment_time">Order Fulfillment Time</h3>
-                        <canvas id="order-fulfillment-time" class="chart"></canvas>
-                    </div>
-                    <div class="metric card" data-timeframe="week">
-                        <h3 data-translate="staff_efficiency">Staff Efficiency</h3>
-                        <canvas id="staff-efficiency" class="chart"></canvas>
-                    </div>
-                </div>
-            </section>
-
-            <section id="customers" class="section">
-                <h2 data-translate="customer_insights">Customer Insights</h2>
-                <div class="metrics">
-                    <div class="metric card" data-timeframe="month">
-                        <h3 data-translate="customer_satisfaction">Customer Satisfaction</h3>
-                        <canvas id="customer-satisfaction" class="chart"></canvas>
-                    </div>
-                    <div class="metric card" data-timeframe="week">
-                        <h3 data-translate="order_preferences">Order Preferences</h3>
-                        <canvas id="order-preferences" class="chart"></canvas>
-                    </div>
-                </div>
-            </section>
-
-            <section id="sales-trends" class="section">
-                <h2 data-translate="sales_trends_section">Sales Trends</h2>
-                <div class="metrics">
-                    <div class="metric card" data-timeframe="month">
-                        <h3 data-translate="total_sales">Total Sales Over Time</h3>
-                        <canvas id="total-sales" class="chart"></canvas>
-                    </div>
-                    <div class="metric card" data-timeframe="week">
-                        <h3 data-translate="sales_by_category">Sales by Product Category</h3>
-                        <canvas id="sales-category" class="chart"></canvas>
-                    </div>
-                </div>
-            </section>
-
-            <section class="sustainability-section" id="sustainability">
-                <h2 class="sustainability-title">Sustainability</h2>
-                <p class="sustainability-description">
-                    Driving innovation for a sustainable future.
-                </p>
-                <div class="kfc-metrics">
-                    <div class="kfc-card">
-                        <i class="metric-icon fas fa-recycle"></i>
-                        <h3>Waste Reduction</h3>
-                        <p>45% decrease in operational waste.</p>
-                    </div>
-                    <div class="kfc-card">
-                        <i class="metric-icon fas fa-seedling"></i>
-                        <h3>Recycling</h3>
-                        <p>85% materials recycled.</p>
-                    </div>
-                </div>
-            </section>
-            
-            <section class="carbon-footprint-section">
-                <h2 class="carbon-footprint-title">Carbon Footprint</h2>
-                <p class="carbon-footprint-description">
-                    Innovating to reduce emissions and enhance sustainability.
-                </p>
-                <div class="kfc-metrics">
-                    <div class="kfc-card">
-                        <i class="metric-icon fas fa-cloud"></i>
-                        <h3>Emissions</h3>
-                        <p>120 tons CO2 annually.</p>
-                    </div>
-                    <div class="kfc-card">
-                        <i class="metric-icon fas fa-leaf"></i>
-                        <h3>Offsets</h3>
-                        <p>50% neutralized via renewables.</p>
-                    </div>
-                </div>
-            </section>
-            
-            <section class="energy-consumption-section">
-                <h2 class="energy-consumption-title">Energy Consumption</h2>
-                <p class="energy-consumption-description">
-                    Leveraging renewable energy for a better tomorrow.
-                </p>
-                <div class="kfc-metrics">
-                    <div class="kfc-card">
-                        <i class="metric-icon fas fa-bolt"></i>
-                        <h3>Total Usage</h3>
-                        <p>500,000 kWh/month.</p>
-                    </div>
-                    <div class="kfc-card">
-                        <i class="metric-icon fas fa-solar-panel"></i>
-                        <h3>Renewables</h3>
-                        <p>70% sourced sustainably.</p>
-                    </div>
-                </div>
-            </section>
-            
-            <section class="staff-performance-section" id="performance">
-                <h2 class="staff-performance-title">Staff Performance</h2>
-                <p class="staff-performance-description">
-                    Recognizing outstanding performance and continuous improvement.
-                </p>
-                <div class="staff-metrics">
-                    <div class="staff-card">
-                        <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Staff 1" class="staff-avatar">
-                        <div class="staff-info">
-                            <h3>John Doe</h3>
-                            <p class="role">Top Performer</p>
-                            <div class="rating">
-                                <i class="fas fa-trophy"></i>
-                                <span>Rating: 95%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="staff-card">
-                        <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Staff 2" class="staff-avatar">
-                        <div class="staff-info">
-                            <h3>Jane Smith</h3>
-                            <p class="role">Employee of the Month</p>
-                            <div class="rating">
-                                <i class="fas fa-medal"></i>
-                                <span>Rating: 92%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="staff-metrics">
-                    <div class="staff-card">
-                        <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Staff 3" class="staff-avatar">
-                        <div class="staff-info">
-                            <h3>Mark Lee</h3>
-                            <p class="role">Performance Growth</p>
-                            <div class="rating">
-                                <i class="fas fa-chart-line"></i>
-                                <span>+25% Improvement</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="staff-card">
-                        <img src="https://randomuser.me/api/portraits/women/4.jpg" alt="Staff 4" class="staff-avatar">
-                        <div class="staff-info">
-                            <h3>Emily Wong</h3>
-                            <p class="role">Task Completion</p>
-                            <div class="rating">
-                                <i class="fas fa-check-circle"></i>
-                                <span>98% On-time</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-        </main>
+  
+    <!-- Reports Section -->
+    <div class="section reports" id="reports" style="display: none;">
+      <h2>Reports</h2>
+      <p>Analyze key metrics and performance insights for your business.</p>
+      <div class="cards-container">
+        <div class="card">
+          <h3>Monthly Revenue</h3>
+          <p>Revenue generated this month</p>
+          <canvas id="monthlyRevenueChart"></canvas>
+        </div>
+        <div class="card">
+          <h3>Customer Feedback</h3>
+          <p>Overall customer satisfaction</p>
+          <canvas id="customerFeedbackChart"></canvas>
+        </div>
+        <div class="card">
+          <h3>Regional Sales</h3>
+          <p>Performance by region</p>
+          <canvas id="regionalSalesChart"></canvas>
+        </div>
+      </div>
     </div>
-    <div class="confetti-container"></div>
-
+  </section>
+  
+  <section id="orders-section" class="dashboard-section">
+    <h2 class="section-title">Orders Overview</h2>
+    <p class="section-description">
+      Efficiently manage and track orders to stay on top of your restaurant's performance.
+    </p>
+    <div class="orders-summary">
+      <div class="orders-metric-card" id="total-orders">
+        <i class="fa fa-box-open"></i>
+        <h3 class="metric-title">Total Orders</h3>
+        <p class="metric-value">1,450</p>
+        <span class="metric-change positive">+5% Today</span>
+      </div>
+      <div class="orders-metric-card" id="pending-orders">
+        <i class="fa fa-clock"></i>
+        <h3 class="metric-title">Pending Orders</h3>
+        <p class="metric-value">120</p>
+        <span class="metric-change negative">-2% from Yesterday</span>
+      </div>
+      <div class="orders-metric-card" id="completed-orders">
+        <i class="fa fa-check-circle"></i>
+        <h3 class="metric-title">Completed Orders</h3>
+        <p class="metric-value">1,300</p>
+        <span class="metric-change positive">+8% This Week</span>
+      </div>
+      <div class="orders-metric-card" id="cancelled-orders">
+        <i class="fa fa-times-circle"></i>
+        <h3 class="metric-title">Cancelled Orders</h3>
+        <p class="metric-value">45</p>
+        <span class="metric-change negative">-1% This Month</span>
+      </div>
+    </div>
+    <div class="orders-chart-container">
+      <h3 class="chart-title">Orders Trend</h3>
+      <canvas id="ordersTrendChart" width="400" height="200"></canvas>
+    </div>
+  </section>
+  
+<section id=sales-performance class=section-content>
+<h2 class=section-title>Sales Performance</h2>
+<p class=section-description>Track daily, weekly, and monthly sales.</p>
+<div class=sales-metrics-container>
+<div class=sales-metric-card>
+<i class="fa fa-calendar-day sales-icon"></i>
+<h3 class=metric-title>Daily Sales</h3>
+<p class=metric-value>$5,200 <span class="growth positive">+8%</span></p>
+</div>
+<div class=sales-metric-card>
+<i class="fa fa-calendar-week sales-icon"></i>
+<h3 class=metric-title>Weekly Sales</h3>
+<p class=metric-value>$35,000 <span class="growth negative">-3%</span></p>
+</div>
+<div class=sales-metric-card>
+<i class="fa fa-calendar-alt sales-icon"></i>
+<h3 class=metric-title>Monthly Sales</h3>
+<p class=metric-value>$120,000 <span class="growth positive">+10%</span></p>
+</div>
+</div>
+</section>
+<section id=product-management class=section-content>
+<h2 class=section-title>Product Management</h2>
+<p class=section-description>Manage your product listings and categories.</p>
+<div class=products-table-container>
+<div class=table-header>
+<h3>All Products</h3>
+<button class=add-new-btn onclick=openAddProductModal()>+ Add New Product</button>
+</div>
+<table class=products-table>
+<thead>
+<tr>
+<th>Image</th>
+<th>Product Name</th>
+<th>Category</th>
+<th>Price</th>
+<th>Stock</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody id=product-list>
+<tr>
+<td data-label=Image>
+<img src="dashboard-assets/chicken bucket.webp" alt="Chicken Bucket" class=product-thumbnail>
+</td>
+<td data-label="Product Name">Chicken Bucket</td>
+<td data-label=Category>Fried Chicken</td>
+<td data-label=Price>$12.99</td>
+<td data-label=Stock>20</td>
+<td data-label=Status>Available</td>
+<td data-label=Actions>
+<button class="action-btn edit-btn">Edit</button>
+<button class="action-btn delete-btn">Delete</button>
+</td>
+</tr>
+</tbody>
+</table>
+<div id=view-toggle-container class=view-toggle-container>
+<button class=view-more-btn onclick=toggleProductRows()>View More</button>
+</div>
+</div>
+<div id=addProductModal class=modal>
+<div class=modal-content>
+<span class=close-btn onclick=closeAddProductModal()>&times;</span>
+<h2>Add New Product</h2>
+<form id=addProductForm>
+<label for=productImage>Product Image URL:</label>
+<input type=text id=productImage placeholder="Enter image URL" required>
+<label for=productName>Product Name:</label>
+<input type=text id=productName placeholder="Enter product name" required>
+<label for=productCategory>Category:</label>
+<input type=text id=productCategory placeholder="Enter category" required>
+<label for=productPrice>Price:</label>
+<input type=number id=productPrice placeholder="Enter price" step=0.01 required>
+<label for=productStock>Stock:</label>
+<input type=number id=productStock placeholder="Enter stock quantity" required>
+<label for=productStatus>Status:</label>
+<select id=productStatus required>
+<option value=Available>Available</option>
+<option value="Low Stock">Low Stock</option>
+<option value="Out of Stock">Out of Stock</option>
+</select>
+<button type=submit class=submit-btn>Add Product</button>
+</form>
+</div>
+</div>
+</section>
+<section id=settings-management class=section-content>
+<h2 class=section-title>Settings</h2>
+<p class=section-description>Configure your profile, preferences, and security settings.</p>
+<div class=settings-metrics-container>
+<div class=settings-metric-card>
+<i class="fa fa-user-cog settings-icon"></i>
+<h3 class=metric-title>Profile</h3>
+<p class=metric-description>View and edit your profile details.</p>
+</div>
+<div class=settings-metric-card>
+<i class="fa fa-sliders-h settings-icon"></i>
+<h3 class=metric-title>Preferences</h3>
+<p class=metric-description>Adjust your system preferences.</p>
+</div>
+<div class=settings-metric-card>
+<i class="fa fa-shield-alt settings-icon"></i>
+<h3 class=metric-title>Security</h3>
+<p class=metric-description>Manage your security settings.</p>
+</div>
+</div>
+</section>
+</div>
+<script src=script.js></script>
 </body>
-
 </html>
