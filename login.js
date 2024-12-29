@@ -14,7 +14,7 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
     // Check if the entered credentials match the selected role
     if (role === 'manager' && username === managerCredentials.username && password === managerCredentials.password) {
         alert('Login successful! Redirecting to Manager Dashboard...');
-        window.location.href = 'manager-dashboard.html'; // Redirect to Manager Dashboard
+        window.location.href = 'Manager-dashboard.html'; // Redirect to Manager Dashboard
     } else if (role === 'staff' && username === staffCredentials.username && password === staffCredentials.password) {
         alert('Login successful! Redirecting to Staff Dashboard...');
         window.location.href = 'staff-dashboard.html'; // Redirect to Staff Dashboard
