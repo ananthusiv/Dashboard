@@ -52,130 +52,123 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.classList.remove("dark-theme");
   }
 
-  // Ensure the canvas context for the chart is valid
-  const ctx = document.getElementById('overviewChart').getContext('2d');
-  if (ctx) {
-    // Initialize the Chart.js instance for Doughnut chart with updated colors
-    new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels: ['January', 'February', 'March', 'April', 'May'],
-        datasets: [{
-          label: 'Sales ($)',
-          data: [1200, 1900, 3000, 5000, 2200],
-          backgroundColor: [
-            '#4D9DE0',  // New rich blue
-            '#A4D8A7',  // Light mint green
-            '#F5B78D',  // Soft peach orange
-            '#2D3D3F'   // Dark gray (for the border/text contrast)
-          ],
-          borderColor: '#fff', // White border for clarity
-          borderWidth: 2
-        }]
+
+
+ // Bar Chart (Total Revenue)
+const barChartData = {
+  labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+  datasets: [{
+    label: 'Total Revenue (₹)',
+    data: [5000, 7000, 8500, 10000],  // Revenue data for each week
+    backgroundColor: '#a3080c',
+    borderRadius: 8,
+    borderWidth: 0
+  }]
+};
+
+const barChartCtx = document.getElementById('ordersBarChart').getContext('2d');
+const ordersBarChart = new Chart(barChartCtx, {
+  type: 'bar',
+  data: barChartData,
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Weeks',
+          color: '#333',
+          font: {
+            size: 14
+          }
+        }
       },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top',
-            labels: {
-              font: {
-                size: 14,
-                family: "'Arial', sans-serif",
-                weight: 'bold'
-              },
-              color: '#333'
-            }
-          },
-          tooltip: {
-            backgroundColor: '#333',
-            titleColor: '#fff',
-            bodyColor: '#fff',
-            borderColor: '#4D9DE0',  // Border color for tooltips matching the first color
-            borderWidth: 2,
-            callbacks: {
-              label: function(tooltipItem) {
-                return tooltipItem.label + ': $' + tooltipItem.raw;
-              }
-            }
+      y: {
+        title: {
+          display: true,
+          text: 'Revenue (₹)',
+          color: '#333',
+          font: {
+            size: 14
           }
         },
-        cutoutPercentage: 70, // Maintain smaller inner radius for a cleaner look
-        maintainAspectRatio: false,
+        beginAtZero: true
       }
-    });
-  } else {
-    console.error('Canvas element not found or context could not be obtained.');
-  }
-
-  // Orders Trend Chart (Line Chart)
-  const orderTrendData = {
-    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
-    datasets: [{
-      label: 'Orders',
-      data: [100, 150, 200, 180, 220],
-      borderColor: '#a3080c',
-      backgroundColor: 'rgba(163, 8, 12, 0.2)',
-      fill: true,
-      tension: 0.3,
-      borderWidth: 3
-    }]
-  };
-
-  const ordersTrendCtx = document.getElementById('ordersTrendChart').getContext('2d');
-  const ordersTrendChart = new Chart(ordersTrendCtx, {
-    type: 'line',
-    data: orderTrendData,
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: {
-          title: {
-            display: true,
-            text: 'Weeks',
-            color: '#333',
-            font: {
-              size: 14
-            }
-          }
-        },
-        y: {
-          title: {
-            display: true,
-            text: 'Number of Orders',
-            color: '#333',
-            font: {
-              size: 14
-            }
-          },
-          beginAtZero: true
-        }
+    },
+    plugins: {
+      legend: {
+        display: false
       },
-      plugins: {
-        legend: {
-          display: false
-        },
-        tooltip: {
-          backgroundColor: '#333',
-          titleColor: '#fff',
-          bodyColor: '#fff',
-          borderColor: '#a3080c',
-          borderWidth: 1
-        }
+      tooltip: {
+        backgroundColor: '#333',
+        titleColor: '#fff',
+        bodyColor: '#fff',
+        borderColor: '#a3080c',
+        borderWidth: 1
       }
     }
-  });
-
-  // Update chart data dynamically
-  function updateChartData(newData) {
-    ordersTrendChart.data.datasets[0].data = newData;
-    ordersTrendChart.update();
   }
+});
 
-  // Example of how you might update with new order data
-  const newOrdersData = [120, 160, 190, 230, 250];
-  updateChartData(newOrdersData);
+// Line Chart (Completed Orders)
+const lineChartData = {
+  labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+  datasets: [{
+    label: 'Completed Orders',
+    data: [100, 150, 200, 180, 220],  // Number of completed orders each week
+    borderColor: '#a3080c',
+    backgroundColor: 'rgba(163, 8, 12, 0.2)',
+    fill: true,
+    tension: 0.3,
+    borderWidth: 3
+  }]
+};
+
+const lineChartCtx = document.getElementById('ordersLineChart').getContext('2d');
+const ordersLineChart = new Chart(lineChartCtx, {
+  type: 'line',
+  data: lineChartData,
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Weeks',
+          color: '#333',
+          font: {
+            size: 14
+          }
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Number of Orders',
+          color: '#333',
+          font: {
+            size: 14
+          }
+        },
+        beginAtZero: true
+      }
+    },
+    plugins: {
+      legend: {
+        display: false
+      },
+      tooltip: {
+        backgroundColor: '#333',
+        titleColor: '#fff',
+        bodyColor: '#fff',
+        borderColor: '#a3080c',
+        borderWidth: 1
+      }
+    }
+  }
+});
 
   // Create other charts (e.g., Monthly Revenue, Customer Feedback, Regional Sales)
   const monthlyRevenueCtx = document.getElementById('monthlyRevenueChart').getContext('2d');
@@ -364,3 +357,72 @@ function toggleTab(tabName) {
 
 // Initialize default tab as 'overview'
 toggleTab("overview");
+document.addEventListener("DOMContentLoaded", () => {
+  const staffItems = document.querySelectorAll(".staff-item");
+  const popup = document.getElementById("achievement-popup");
+  const popupText = popup.querySelector(".achievement-text");
+
+  staffItems.forEach((item) => {
+    item.addEventListener("mouseenter", (e) => {
+      const achievement = item.getAttribute("data-achievement");
+      popupText.textContent = achievement;
+
+      const rect = item.getBoundingClientRect();
+      popup.style.top = `${rect.top + window.scrollY - popup.offsetHeight - 10}px`;
+      popup.style.left = `${rect.left + (rect.width / 2) - (popup.offsetWidth / 2)}px`;
+
+      popup.style.display = "block";
+    });
+
+    item.addEventListener("mouseleave", () => {
+      popup.style.display = "none";
+    });
+  });
+});
+// Function to refresh live order updates
+function refreshLiveOrders() {
+  const orderList = document.querySelector(".order-update-list");
+
+  // Simulated updated orders data
+  const updatedOrders = [
+    { id: 3463, details: "Pasta Alfredo", status: "Preparing", time: "Just now" },
+    { id: 3464, details: "Grilled Chicken", status: "Pending", time: "2 mins ago" },
+    { id: 3465, details: "Veggie Burger", status: "Completed", time: "5 mins ago" },
+    { id: 3466, details: "Cheese Pizza", status: "Preparing", time: "7 mins ago" },
+    { id: 3467, details: "Chocolate Shake", status: "Pending", time: "10 mins ago" },
+    { id: 3468, details: "Garlic Knots", status: "Completed", time: "12 mins ago" },
+  ];
+
+  // Clear the existing list
+  orderList.innerHTML = "";
+
+  // Update the list with new data
+  updatedOrders.forEach((order) => {
+    const listItem = document.createElement("li");
+    listItem.classList.add("order-update-item");
+
+    // Set the inner HTML for each order
+    listItem.innerHTML = `
+      <span class="order-details">Order #${order.id}: ${order.details}</span>
+      <span class="order-status ${order.status.toLowerCase()}">${order.status}</span>
+      <span class="order-time">${order.time}</span>
+    `;
+
+    // Append to the list
+    orderList.appendChild(listItem);
+  });
+
+  // Notify user of the refresh
+  alert("Live Order Updates refreshed!");
+}
+
+// Attach the refresh function to the button
+document.querySelector(".refresh-button").addEventListener("click", refreshLiveOrders);
+
+
+const feedbackList = document.querySelector('.feedback-list');
+  feedbackList.addEventListener('animationiteration', () => {
+    feedbackList.style.animation = 'none';
+    feedbackList.offsetHeight; // Trigger reflow
+    feedbackList.style.animation = 'scrollFeedback 10s linear infinite';
+  });

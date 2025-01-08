@@ -43,139 +43,137 @@
 </button>
 </div>
 </nav>
-<div class="sidebar">
-  <ul>
-    <li>
-      <div class="menu-item">
-        <i class="fa fa-home"></i> <a href="#overview-reports">Dashboard</a>
-      </div>
-    </li>
-    <li>
-      <div class="menu-item">
-        <i class="fa fa-shopping-cart"></i> <a href="#orders-section">Orders</a>
-      </div>
-    </li>
-    <li>
-      <div class="menu-item">
-        <i class="fa fa-chart-line"></i> <a href="#sales-performance">Sales</a>
-      </div>
-    </li>
-    <li>
-      <div class="menu-item">
-        <i class="fa fa-box"></i> <a href="#product-management">Products</a>
-      </div>
-    </li>
-    <li>
-      <div class="menu-item">
-        <i class="fa fa-cog"></i> <a href="#settings-management">Settings</a>
-      </div>
-    </li>
-  </ul>
+<div class=sidebar>
+<ul>
+<li>
+<div class=menu-item>
+<i class="fa fa-home"></i> <a href=#overview-reports>Dashboard</a>
 </div>
+</li>
+<li>
+<div class=menu-item>
+<i class="fa fa-shopping-cart"></i> <a href=#orders-section>Orders</a>
+</div>
+</li>
+<li>
+<div class=menu-item>
+<i class="fa fa-chart-line"></i> <a href=#sales-performance>Sales</a>
+</div>
+</li>
+<li>
+<div class=menu-item>
+<i class="fa fa-box"></i> <a href=#product-management>Products</a>
+</div>
+</li>
+<li>
+<div class=menu-item>
+<i class="fa fa-cog"></i> <a href=#settings-management>Settings</a>
+</div>
+</li>
+</ul>
+</div>
+<div class=content-container>
 <div class=main-content>
-  <section id="overview-reports">
-    <!-- Tabs for navigation -->
-    <div class="tabs">
-      <button class="tab" id="overview-tab" onclick="toggleTab('overview')">Overview</button>
-      <button class="tab" id="reports-tab" onclick="toggleTab('reports')">Reports</button>
-    </div>
-    
-    <!-- Overview Section -->
-    <div class="section-overview" id="overview" style="display: block;">
-      <h2>Overview</h2>
-      <p>Get a quick summary of performance and metrics.</p>
-      <div class="overview-metrics">
-        <div class="metric-card">
-          <i class="fa fa-dollar-sign"></i>
-          <h3>Total Sales</h3>
-          <p>$45,200 <span class="growth positive">+12%</span></p>
-          <div class="progress-bar">
-            <div class="progress" style="width: 70%;"></div>
-          </div>
-        </div>
-        <div class="metric-card">
-          <i class="fa fa-box-open"></i>
-          <h3>New Orders</h3>
-          <p>320 <span class="growth negative">-5%</span></p>
-          <div class="progress-bar">
-            <div class="progress" style="width: 50%;"></div>
-          </div>
-        </div>
-        <div class="metric-card">
-          <i class="fa fa-users"></i>
-          <h3>Active Customers</h3>
-          <p>1,250 <span class="growth positive">+8%</span></p>
-          <div class="progress-bar">
-            <div class="progress" style="width: 80%;"></div>
-          </div>
-        </div>
-      </div>
-      <div class="chart-container">
-        <canvas id="overviewChart" width="400" height="200"></canvas>
-      </div>
-    </div>
-  
-    <!-- Reports Section -->
-    <div class="section reports" id="reports" style="display: none;">
-      <h2>Reports</h2>
-      <p>Analyze key metrics and performance insights for your business.</p>
-      <div class="cards-container">
-        <div class="card">
-          <h3>Monthly Revenue</h3>
-          <p>Revenue generated this month</p>
-          <canvas id="monthlyRevenueChart"></canvas>
-        </div>
-        <div class="card">
-          <h3>Customer Feedback</h3>
-          <p>Overall customer satisfaction</p>
-          <canvas id="customerFeedbackChart"></canvas>
-        </div>
-        <div class="card">
-          <h3>Regional Sales</h3>
-          <p>Performance by region</p>
-          <canvas id="regionalSalesChart"></canvas>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <section id="orders-section" class="dashboard-section">
-    <h2 class="section-title">Orders Overview</h2>
-    <p class="section-description">
-      Efficiently manage and track orders to stay on top of your restaurant's performance.
-    </p>
-    <div class="orders-summary">
-      <div class="orders-metric-card" id="total-orders">
-        <i class="fa fa-box-open"></i>
-        <h3 class="metric-title">Total Orders</h3>
-        <p class="metric-value">1,450</p>
-        <span class="metric-change positive">+5% Today</span>
-      </div>
-      <div class="orders-metric-card" id="pending-orders">
-        <i class="fa fa-clock"></i>
-        <h3 class="metric-title">Pending Orders</h3>
-        <p class="metric-value">120</p>
-        <span class="metric-change negative">-2% from Yesterday</span>
-      </div>
-      <div class="orders-metric-card" id="completed-orders">
-        <i class="fa fa-check-circle"></i>
-        <h3 class="metric-title">Completed Orders</h3>
-        <p class="metric-value">1,300</p>
-        <span class="metric-change positive">+8% This Week</span>
-      </div>
-      <div class="orders-metric-card" id="cancelled-orders">
-        <i class="fa fa-times-circle"></i>
-        <h3 class="metric-title">Cancelled Orders</h3>
-        <p class="metric-value">45</p>
-        <span class="metric-change negative">-1% This Month</span>
-      </div>
-    </div>
-    <div class="orders-chart-container">
-      <h3 class="chart-title">Orders Trend</h3>
-      <canvas id="ordersTrendChart" width="400" height="200"></canvas>
-    </div>
-  </section>
-  
+<section id=overview-reports>
+<div class=tabs>
+<button class=tab id=overview-tab onclick="toggleTab('overview')">Overview</button>
+<button class=tab id=reports-tab onclick="toggleTab('reports')">Reports</button>
+</div>
+<div class=section-overview id=overview style=display:block>
+<h2>Overview</h2>
+<p>Get a quick summary of performance and metrics.</p>
+<div class=overview-metrics>
+<div class=metric-card>
+<i class="fa fa-dollar-sign"></i>
+<h3>Total Sales</h3>
+<p>$45,200 <span class="growth positive">+12%</span></p>
+<div class=progress-bar>
+<div class=progress style=width:70%></div>
+</div>
+</div>
+<div class=metric-card>
+<i class="fa fa-box-open"></i>
+<h3>New Orders</h3>
+<p>320 <span class="growth negative">-5%</span></p>
+<div class=progress-bar>
+<div class=progress style=width:50%></div>
+</div>
+</div>
+<div class=metric-card>
+<i class="fa fa-users"></i>
+<h3>Active Customers</h3>
+<p>1,250 <span class="growth positive">+8%</span></p>
+<div class=progress-bar>
+<div class=progress style=width:80%></div>
+</div>
+</div>
+</div>
+</div>
+<div class=section-reports id=reports style=display:none>
+<h2>Reports</h2>
+<p>Analyze key metrics and performance insights for your business.</p>
+<div class=cards-container>
+<div class=card>
+<h3>Monthly Revenue</h3>
+<p>Revenue generated this month</p>
+<canvas id=monthlyRevenueChart></canvas>
+</div>
+<div class=card>
+<h3>Customer Feedback</h3>
+<p>Overall customer satisfaction</p>
+<canvas id=customerFeedbackChart></canvas>
+</div>
+<div class=card>
+<h3>Regional Sales</h3>
+<p>Performance by region</p>
+<canvas id=regionalSalesChart></canvas>
+</div>
+</div>
+</div>
+</section>
+<section id=orders-section class=dashboard-section>
+<h2 class=section-title>Orders Overview</h2>
+<p class=section-description>
+Efficiently manage and track orders to stay on top of your restaurant's performance.
+</p>
+<div class=orders-summary>
+<div class=orders-metric-card id=total-orders>
+<i class="fa fa-box-open"></i>
+<h3 class=metric-title>Total Orders</h3>
+<p class=metric-value>1,450</p>
+<span class="metric-change positive">+5% Today</span>
+</div>
+<div class=orders-metric-card id=pending-orders>
+<i class="fa fa-clock"></i>
+<h3 class=metric-title>Pending Orders</h3>
+<p class=metric-value>120</p>
+<span class="metric-change negative">-2% from Yesterday</span>
+</div>
+<div class=orders-metric-card id=completed-orders>
+<i class="fa fa-check-circle"></i>
+<h3 class=metric-title>Completed Orders</h3>
+<p class=metric-value>1,300</p>
+<span class="metric-change positive">+8% This Week</span>
+</div>
+<div class=orders-metric-card id=cancelled-orders>
+<i class="fa fa-times-circle"></i>
+<h3 class=metric-title>Cancelled Orders</h3>
+<p class=metric-value>45</p>
+<span class="metric-change negative">-1% This Month</span>
+</div>
+</div>
+<div class=orders-chart-container>
+<h3 class=chart-title>Orders Overview - Monthly</h3>
+<div class=charts>
+<div class=chart-container>
+<canvas id=ordersBarChart></canvas>
+</div>
+<div class=chart-container>
+<canvas id=ordersLineChart></canvas>
+</div>
+</div>
+</div>
+</section>
 <section id=sales-performance class=section-content>
 <h2 class=section-title>Sales Performance</h2>
 <p class=section-description>Track daily, weekly, and monthly sales.</p>
@@ -285,6 +283,170 @@
 </div>
 </div>
 </section>
+</div>
+<div class=side-panel id=side-panel>
+<div class=live-order-updates>
+<h3>Live Order Updates</h3>
+<ul class=order-update-list>
+<li class=order-update-item>
+<span class=order-details>Order #3456: Chicken Bucket</span>
+<span class="order-status completed">Completed</span>
+<span class=order-time>2 mins ago</span>
+</li>
+<li class=order-update-item>
+<span class=order-details>Order #3457: Veggie Pizza</span>
+<span class="order-status preparing">Preparing</span>
+<span class=order-time>5 mins ago</span>
+</li>
+<li class=order-update-item>
+<span class=order-details>Order #3458: Spicy Wings</span>
+<span class="order-status pending">Pending</span>
+<span class=order-time>8 mins ago</span>
+</li>
+<li class=order-update-item>
+<span class=order-details>Order #3459: Garlic Bread</span>
+<span class="order-status completed">Completed</span>
+<span class=order-time>12 mins ago</span>
+</li>
+<li class=order-update-item>
+<span class=order-details>Order #3460: Zinger Burger</span>
+<span class="order-status preparing">Preparing</span>
+<span class=order-time>10 mins ago</span>
+</li>
+<li class=order-update-item>
+<span class=order-details>Order #3461: French Fries</span>
+<span class="order-status pending">Pending</span>
+<span class=order-time>15 mins ago</span>
+</li>
+<li class=order-update-item>
+<span class=order-details>Order #3462: Coke Float</span>
+<span class="order-status completed">Completed</span>
+<span class=order-time>20 mins ago</span>
+</li>
+</ul>
+<button class=refresh-button>Refresh</button>
+</div>
+<div class=customer-feedback>
+<h2>📣 Customer Feedback</h2>
+<div class=feedback-wrapper>
+<div class=feedback-list>
+<div class=feedback-item>
+<div class=rating>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star-half-alt"></span>
+<span class="fa fa-star"></span>
+</div>
+<div class=name>John Doe</div>
+<div class=comments>The chicken was crispy and delicious!</div>
+</div>
+<div class=feedback-item>
+<div class=rating>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+</div>
+<div class=name>Jane Smith</div>
+<div class=comments>Best Zinger Burger I've ever had!</div>
+</div>
+<div class=feedback-item>
+<div class=rating>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+</div>
+<div class=name>Alex Johnson</div>
+<div class=comments>The service was fast and the food was hot.</div>
+</div>
+<div class=feedback-item>
+<div class=rating>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star-half-alt"></span>
+</div>
+<div class=name>Emily Brown</div>
+<div class=comments>The fries were perfectly seasoned. Loved it!</div>
+</div>
+<div class=feedback-item>
+<div class=rating>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+</div>
+<div class=name>Michael White</div>
+<div class=comments>Highly recommend the Spicy Wings combo!</div>
+</div>
+</div>
+</div>
+</div>
+<div class=inventory-details>
+<h3>📦 Inventory Stock Details</h3>
+<ul>
+<li>
+<i class="fa fa-box"></i>
+<span class=item-name>Chicken Wings</span> - <span class=stock-quantity>150 units in stock</span>
+<span class="badge high-stock">Sufficient</span>
+</li>
+<li>
+<i class="fa fa-box-open"></i>
+<span class=item-name>Burger Buns</span> - <span class=stock-quantity>30 units in stock</span>
+<span class="badge low-stock">Low Stock</span>
+</li>
+<li>
+<i class="fa fa-warehouse"></i>
+<span class=item-name>Soft Drinks (Cans)</span> - <span class=stock-quantity>500 units in stock</span>
+<span class="badge high-stock">Sufficient</span>
+</li>
+<li>
+<i class="fa fa-box"></i>
+<span class=item-name>Seasoning Packets</span> - <span class=stock-quantity>10 units in stock</span>
+<span class="badge critical-stock">Critical!</span>
+</li>
+</ul>
+</div>
+<div class=staff-performance>
+<h3>🌟 Staff Performance Achievements</h3>
+<ul>
+<li>
+<i class="fa fa-trophy"></i>
+<span class=achievement-title>Employee of the Month:</span>
+<span class=achievement-detail>John Doe</span>
+<img src=https://randomuser.me/api/portraits/men/1.jpg alt="John Doe" class=staff-face>
+</li>
+<li>
+<i class="fa fa-chart-line"></i>
+<span class=achievement-title>Highest Sales:</span>
+<span class=achievement-detail>Jane Smith</span>
+<img src=https://randomuser.me/api/portraits/women/2.jpg alt="Jane Smith" class=staff-face>
+</li>
+<li>
+<i class="fa fa-smile"></i>
+<span class=achievement-title>Best Customer Service:</span>
+<span class=achievement-detail>Emily Davis</span>
+<img src=https://randomuser.me/api/portraits/women/3.jpg alt="Emily Davis" class=staff-face>
+</li>
+<li>
+<i class="fa fa-arrow-up"></i>
+<span class=achievement-title>Most Improved:</span>
+<span class=achievement-detail>Alex Johnson</span>
+<img src=https://randomuser.me/api/portraits/men/4.jpg alt="Alex Johnson" class=staff-face>
+</li>
+<li>
+<i class="fa fa-users"></i>
+<span class=achievement-title>Top Team Player:</span>
+<span class=achievement-detail>Sarah Lee</span>
+<img src=https://randomuser.me/api/portraits/women/5.jpg alt="Sarah Lee" class=staff-face>
+</li>
+</ul>
 </div>
 <script src=script.js></script>
 </body>
