@@ -54,6 +54,12 @@ h1 {
     outline: none;
 }
 
+/* Placeholder Styling */
+.input-group input::placeholder {
+    opacity: 0.6; /* Set the opacity to a lower value */
+    color: #333; /* Optional: Change color for better contrast */
+}
+
 .input-group input:focus {
     border-color: #a3080c; /* KFC Red */
 }
@@ -126,6 +132,7 @@ button:hover {
         font-size: 1rem;
     }
 }
+
 /* Password Container Styles */
 .password-container {
     position: relative;
